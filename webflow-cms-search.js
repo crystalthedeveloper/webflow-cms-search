@@ -1,17 +1,3 @@
-# webflow-cms-search
-A lightweight, dependency-free search solution for Webflow CMS. It filters visible CMS items live as you type — perfect for blog lists, portfolios, or stores. Designed to work entirely with data attributes, keeping your Designer clean and flexible.
-
-## Install
-Place the script in the head or before the closing `</body>` of your Webflow project.
-
-```html
-<!-- Webflow CMS Search [by Crystal The Developer Inc.] -->
-<script src="https://cdn.jsdelivr.net/gh/crystalthedeveloper/webflow-cms-search@v1.0.0/webflow-cms-search.js" defer></script>
-```
-
-## How it works
-
-```javascript
 /**
  * Webflow CMS Search (Attribute-Based)
  * Repo: crystalthedeveloper/webflow-cms-search
@@ -47,4 +33,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-```
