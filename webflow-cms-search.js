@@ -1,12 +1,16 @@
 /**
  * Webflow CMS Search (Attribute-Based)
  * Repo: crystalthedeveloper/webflow-cms-search
- * Version: 1.0.0
+ * Version: 1.0.1
  *
  * Works natively on Webflow published sites.
  * Add a text input with [data-cltd-search-field]
- * and a CMS list wrapper with [data-cltd-search-list]
+ * and a CMS list wrapper with [data-cltd-search-list].
  * Each CMS item should contain text to be matched.
+ *
+ * v1.0.1 — Improvements:
+ *  - Smooth fade animation for "no results" element
+ *  - Accessibility support via aria-live for screen readers
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -16,6 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const items = Array.from(list.children);
   const noResults = document.querySelector('[data-cltd-search-empty]');
+
+  // Add aria-live for accessibility
+  if (noResults) {
+    noResults.setAttribute("aria-live", "polite");
+    noResults.style.transition = "opacity 0.25s ease";
+    noResults.style.opacity = "0";
+    noResults.style.display = "none";
+  }
 
   searchField.addEventListener('input', e => {
     const query = e.target.value.trim().toLowerCase();
@@ -29,7 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (noResults) {
-      noResults.style.display = visibleCount === 0 ? '' : 'none';
+      if (visibleCount === 0) {
+        noResults.style.display = "block";
+        requestAnimationFrame(() => (noResults.style.opacity = "1"));
+      } else {
+        noResults.style.opacity = "0";
+        setTimeout(() => (noResults.style.display = "none"), 250);
+      }
     }
   });
 });
